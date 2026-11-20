@@ -7,20 +7,20 @@
 
 ---
 
-## 🌾 Overview & Core Features
+#Overview & Core Features
 
-1. **🌱 AI Crop Recommendation**: Random Forest Machine Learning model predicting optimal crops (Rice, Wheat, Maize, Cotton, Chickpea, Mustard, Sugarcane, Soybean, etc.) based on Nitrogen (N), Phosphorus (P), Potassium (K), Soil pH, Temperature, Humidity, and Rainfall.
-2. **🐛 Pest & Disease Vision Classifier**: Upload or drop leaf photos to diagnose diseases (Leaf Rust, Powdery Mildew, Rice Blast, Early Blight, Leaf Curl, etc.) with confidence scores, organic bio-remedies (Neem oil, Trichoderma), and chemical dosage safety prescriptions.
-3. **🧪 Fertilizer & Soil Nutrient Optimizer**: Calculates exact 50kg bags of Urea, DAP, and MOP required for any farm acreage along with split application schedules and cost savings.
-4. **📈 Yield Estimation Engine**: Multi-variable regression model projecting quintals/acre yield curves and influencing factors (soil, weather, irrigation, fertilizers).
-5. **🌦️ Agromet Weather Advisory**: 5-day agro-meteorological forecast with automated irrigation warnings and pesticide spray window recommendations.
-6. **💰 Mandi Market Rate Tracker**: Real-time APMC mandi commodity prices, MSP comparisons, and trend tracking.
-7. **🔊 Integrated Voice Assistant (TTS)**: One-click audio narration in Hindi/English for farmers with low digital literacy.
-8. **🛡️ Dedicated Admin Portal & PostgreSQL Database**: Admin dashboard to manage farmers, audit leaf scans, update mandi rates, and broadcast emergency agricultural alerts.
+1. AI Crop Recommendation: Random Forest Machine Learning model predicting optimal crops (Rice, Wheat, Maize, Cotton, Chickpea, Mustard, Sugarcane, Soybean, etc.) based on Nitrogen (N), Phosphorus (P), Potassium (K), Soil pH, Temperature, Humidity, and Rainfall.
+2. Pest & Disease Vision Classifier: Upload or drop leaf photos to diagnose diseases (Leaf Rust, Powdery Mildew, Rice Blast, Early Blight, Leaf Curl, etc.) with confidence scores, organic bio-remedies (Neem oil, Trichoderma), and chemical dosage safety prescriptions.
+3. Fertilizer & Soil Nutrient Optimizer: Calculates exact 50kg bags of Urea, DAP, and MOP required for any farm acreage along with split application schedules and cost savings.
+4. Yield Estimation Engine: Multi-variable regression model projecting quintals/acre yield curves and influencing factors (soil, weather, irrigation, fertilizers).
+5. Agromet Weather Advisory: 5-day agro-meteorological forecast with automated irrigation warnings and pesticide spray window recommendations.
+6. Mandi Market Rate Tracker: Real-time APMC mandi commodity prices, MSP comparisons, and trend tracking.
+7. Integrated Voice Assistant (TTS): One-click audio narration in Hindi/English for farmers with low digital literacy.
+8. Dedicated Admin Portal & PostgreSQL Database: Admin dashboard to manage farmers, audit leaf scans, update mandi rates, and broadcast emergency agricultural alerts.
 
 ---
 
-## 📁 Repository Directory Structure
+#Repository Directory Structure
 
 ```text
 annadata_app/
@@ -63,19 +63,19 @@ annadata_app/
 
 ---
 
-## 🚀 Quick Start & Installation
+#Quick Start & Installation
 
-### 1. Prerequisites
+#1. Prerequisites
 - Python 3.9+ installed
 - *(Optional)* PostgreSQL server (Defaults automatically to embedded SQLite if PostgreSQL is not active)
 
-### 2. Install Dependencies
+#2. Install Dependencies
 ```bash
 cd annadata_app
 pip install -r requirements.txt
 ```
 
-### 3. Run the Application
+#3. Run the Application
 ```bash
 python run.py
 ```
@@ -83,18 +83,18 @@ python run.py
 
 ---
 
-## 🌐 Portals & Demo Access
+#Portals & Demo Access
 
 | Portal | URL | Demo Credentials |
 | :--- | :--- | :--- |
-| **🌾 Farmer Main Dashboard** | [http://127.0.0.1:8000](http://127.0.0.1:8000) | Instant Access |
-| **🔑 Farmer & Admin Login** | [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login) | **Farmer**: `9520412093` / `kisan123`<br/>**Admin**: `admin` / `admin123` |
-| **🛡️ Dedicated Admin Portal** | [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) | `admin` / `admin123` |
-| **📖 Interactive API Docs** | [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) | Swagger UI for all REST endpoints |
+| Farmer Main Dashboard** | [http://127.0.0.1:8000](http://127.0.0.1:8000) | Instant Access |
+| Farmer & Admin Login** | [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login) | **Farmer**: `9520412093` / `kisan123`<br/>**Admin**: `admin` / `admin123` |
+| Dedicated Admin Portal** | [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) | `admin` / `admin123` |
+| Interactive API Docs** | [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) | Swagger UI for all REST endpoints |
 
 ---
 
-## 🗄️ PostgreSQL Database Configuration
+#PostgreSQL Database Configuration
 
 To connect your external PostgreSQL server, set the `DATABASE_URL` environment variable before running:
 
@@ -112,7 +112,7 @@ The system will automatically initialize all tables and seed default users, mand
 
 ---
 
-## 🧪 Running Automated Tests
+#Running Automated Tests
 
 Run the full integration test suite to verify all 10 subsystems:
 
