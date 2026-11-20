@@ -305,7 +305,7 @@
                 if (data.success) {
                     localStorage.setItem('annadata_farmer', JSON.stringify(data.farmer));
                     showToast("सफल लॉगिन! आपको मुख्य पृष्ठ पर ले जाया जा रहा है...");
-                    setTimeout(() => { window.location.href = '/'; }, 800);
+                    setTimeout(() => { window.location.href = '/dashboard'; }, 800);
                 } else {
                     showToast(data.message || "अमान्य मोबाइल नंबर या पासवर्ड");
                 }
