@@ -12,7 +12,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 
-from ml.crop_model import crop_engine
+from .ml.crop_model import crop_engine
 from ml.disease_model import disease_engine
 from ml.fertilizer_engine import fertilizer_engine
 from ml.yield_engine import yield_engine
