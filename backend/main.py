@@ -4,6 +4,7 @@ FastAPI Backend Application with PostgreSQL Database Integration & Admin Control
 """
 
 import os
+from fastapi.responses import RedirectResponse
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Form, Query, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -113,16 +114,17 @@ class BroadcastCreateRequest(BaseModel):
 
 @app.get("/")
 async def serve_index():
-    index_file = FRONTEND_DIR / "index.html"
-    if index_file.exists():
-        return FileResponse(str(index_file))
-    return {"message": "Frontend index.html not found"}
+    return RedirectResponse(url="/login")
 
 @app.get("/login")
 async def serve_login():
     login_file = FRONTEND_DIR / "login.html"
     if login_file.exists():
         return FileResponse(str(login_file))
+    return FileResponse(str(FRONTEND_DIR / "index.html"))
+
+@app.get("/dashboard")
+async def serve_dashboard():
     return FileResponse(str(FRONTEND_DIR / "index.html"))
 
 @app.get("/admin")
