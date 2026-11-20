@@ -13,12 +13,12 @@ from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 
 from backend.ml.crop_model import crop_engine
-from ml.disease_model import disease_engine
-from ml.fertilizer_engine import fertilizer_engine
-from ml.yield_engine import yield_engine
-from services.weather_service import weather_service
-from services.mandi_service import mandi_service
-from services.store import store
+from .ml.disease_model import disease_engine
+from .ml.fertilizer_engine import fertilizer_engine
+from .ml.yield_engine import yield_engine
+from .services.weather_service import weather_service
+from .services.mandi_service import mandi_service
+from .services.store import store
 import database as db
 
 BASE_DIR = Path(__file__).resolve().parent.parent
