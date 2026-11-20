@@ -19,7 +19,7 @@ from .ml.yield_engine import yield_engine
 from .services.weather_service import weather_service
 from .services.mandi_service import mandi_service
 from .services.store import store
-import database as db
+from . import database as db
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = BASE_DIR / "frontend"
