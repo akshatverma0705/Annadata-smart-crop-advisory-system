@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>लॉगिन | अन्नदाता - सही सलाह, बेहतर फसल</title>
+    <link rel="stylesheet" href="./home.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1b5224 0%, #2d7a36 60%, #4a9650 100%);
+            padding: 20px;
+        }
+        .login-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 460px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        .login-top {
+            background: #f1f8e9;
+            padding: 24px;
+            text-align: center;
+            border-bottom: 1px solid #dcedc8;
+        }
+        .login-top img {
+            width: 84px;
+            height: 84px;
+            border-radius: 20px;
+            object-fit: contain;
+            background: #000000;
+            margin-bottom: 10px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            border: 2px solid rgba(245, 197, 24, 0.6);
+        }
+        .login-top h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            line-height: 1.1;
+        }
+        .login-top p {
+            font-size: 13px;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+        .login-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .login-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .login-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: #fafdfa;
+        }
+        .login-form-container {
+            padding: 24px;
+        }
+        .demo-box {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+        }
+        .demo-box p {
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+        .demo-btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .demo-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        .demo-btn:hover {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+        .admin-link-box {
+            text-align: center;
+            padding-top: 14px;
+            border-top: 1px solid #f1f5f9;
+            margin-top: 16px;
+        }
+        .admin-link-box a {
+            color: var(--accent-orange);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .admin-link-box a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-card">
+        <div class="login-top">
+            <img src="./assets/annadatalogo.jpg" alt="अन्नदाता">
+            <h1>अन्नदाता</h1>
+            <p>सही सलाह, बेहतर फसल</p>
+        </div>
+
+        <div class="login-tabs">
+            <div class="login-tab active" id="tab-farmer" onclick="switchLoginTab('farmer')">
+                <span class="material-symbols-outlined" style="font-size: 18px;">agriculture</span> किसान लॉगिन
+            </div>
+            <div class="login-tab" id="tab-register" onclick="switchLoginTab('register')">
+                <span class="material-symbols-outlined" style="font-size: 18px;">person_add</span> नया पंजीकरण
+            </div>
+            <div class="login-tab" id="tab-admin" onclick="switchLoginTab('admin')">
+                <span class="material-symbols-outlined" style="font-size: 18px;">admin_panel_settings</span> अधिकारी लॉगिन
+            </div>
+        </div>
+
+        <div class="login-form-container">
+            <!-- 1. FARMER LOGIN -->
+            <form id="form-farmer-login" onsubmit="handleFarmerLogin(event)">
+                <div class="demo-box">
+                    <p>⚡ त्वरित डेमो लॉगिन (1-क्लिक):</p>
+                    <div class="demo-btn-group">
+                        <button type="button" class="demo-btn" onclick="fillFarmerDemo('9520412093', 'kisan123')">किसान भाई (इंदौर)</button>
+                        <button type="button" class="demo-btn" onclick="fillFarmerDemo('9876543210', 'kisan123')">रामप्रसाद (उज्जैन)</button>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label>मोबाइल नंबर (Phone Number):</label>
+                    <input type="tel" id="farmer-phone" placeholder="उदा. 9520412093" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 18px;">
+                    <label>पासवर्ड (Password):</label>
+                    <input type="password" id="farmer-pass" placeholder="पासवर्ड दर्ज करें" required>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <span class="material-symbols-outlined">login</span> पोर्टल में प्रवेश करें
+                </button>
+            </form>
+
+            <!-- 2. FARMER REGISTER -->
+            <form id="form-farmer-register" style="display: none;" onsubmit="handleFarmerRegister(event)">
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label>किसान का पूरा नाम:</label>
+                    <input type="text" id="reg-name" placeholder="उदा. सुरेश कुमार" required>
+                </div>
+                <div class="form-row" style="margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label>मोबाइल नंबर:</label>
+                        <input type="tel" id="reg-phone" placeholder="10 अंकों का नंबर" required>
+                    </div>
+                    <div class="form-group">
+                        <label>पासवर्ड बनाएं:</label>
+                        <input type="password" id="reg-pass" placeholder="नया पासवर्ड" required>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label>जिला / स्थान:</label>
+                        <select id="reg-loc">
+                            <option value="इंदौर , मध्य प्रदेश">इंदौर , मध्य प्रदेश</option>
+                            <option value="भोपाल , मध्य प्रदेश">भोपाल , मध्य प्रदेश</option>
+                            <option value="उज्जैन , मध्य प्रदेश">उज्जैन , मध्य प्रदेश</option>
+                            <option value="जयपुर , राजस्थान">जयपुर , राजस्थान</option>
+                            <option value="करनाल , हरियाणा">करनाल , हरियाणा</option>
+                            <option value="नासिक , महाराष्ट्र">नासिक , महाराष्ट्र</option>
+                            <option value="वाराणसी , उत्तर प्रदेश">वाराणसी , उत्तर प्रदेश</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>खेत का आकार (एकड़):</label>
+                        <input type="number" id="reg-size" value="2.5" step="0.5" required>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-bottom: 16px;">
+                    <div class="form-group">
+                        <label>मिट्टी का प्रकार:</label>
+                        <select id="reg-soil">
+                            <option value="दोमट">दोमट (Loamy)</option>
+                            <option value="काली">काली मिट्टी</option>
+                            <option value="चिकनी">चिकनी मिट्टी</option>
+                            <option value="बलुई">बलुई दोमट</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>मुख्य फसल:</label>
+                        <select id="reg-crop">
+                            <option value="गेहूं">गेहूं</option>
+                            <option value="धान / चावल">धान / चावल</option>
+                            <option value="सोयाबीन">सोयाबीन</option>
+                            <option value="कपास">कपास</option>
+                            <option value="मक्का">मक्का</option>
+                            <option value="सरसों">सरसों</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <span class="material-symbols-outlined">how_to_reg</span> नया खाता बनाएं
+                </button>
+            </form>
+
+            <!-- 3. ADMIN LOGIN -->
+            <form id="form-admin-login" style="display: none;" onsubmit="handleAdminLogin(event)">
+                <div class="demo-box" style="background:#fff3e0; border-color:#ffe0b2;">
+                    <p style="color:#e65100;">🛡️ कृषि वैज्ञानिक / अधिकारी डेमो:</p>
+                    <div class="demo-btn-group">
+                        <button type="button" class="demo-btn" style="color:#e65100; border-color:#ffb74d;" onclick="fillAdminDemo('admin', 'admin123')">Dr. राजेश शर्मा (admin / admin123)</button>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label>उपयोगकर्ता नाम (Username / Email):</label>
+                    <input type="text" id="admin-user" placeholder="admin" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 18px;">
+                    <label>अधिकारी पासवर्ड (Admin Password):</label>
+                    <input type="password" id="admin-pass" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; background: var(--accent-orange);">
+                    <span class="material-symbols-outlined">admin_panel_settings</span> एडमिन पोर्टल में प्रवेश करें
+                </button>
+            </form>
+
+            <div class="admin-link-box">
+                <a href="/" style="color: #64748b;">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_back</span> मुख्य पोर्टल पर वापस जाएं
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"><span class="material-symbols-outlined">check_circle</span> <span id="toast-msg">अपडेट</span></div>
+
+    <script>
+        const API_BASE = window.location.origin;
+
+        function switchLoginTab(tab) {
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+
+            document.getElementById('form-farmer-login').style.display = tab === 'farmer' ? 'block' : 'none';
+            document.getElementById('form-farmer-register').style.display = tab === 'register' ? 'block' : 'none';
+            document.getElementById('form-admin-login').style.display = tab === 'admin' ? 'block' : 'none';
+        }
+
+        function fillFarmerDemo(phone, pass) {
+            document.getElementById('farmer-phone').value = phone;
+            document.getElementById('farmer-pass').value = pass;
+        }
+
+        function fillAdminDemo(user, pass) {
+            document.getElementById('admin-user').value = user;
+            document.getElementById('admin-pass').value = pass;
+        }
+
+        async function handleFarmerLogin(e) {
+            e.preventDefault();
+            const phone = document.getElementById('farmer-phone').value;
+            const pass = document.getElementById('farmer-pass').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/farmer/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, password: pass })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('annadata_farmer', JSON.stringify(data.farmer));
+                    showToast("सफल लॉगिन! आपको मुख्य पृष्ठ पर ले जाया जा रहा है...");
+                    setTimeout(() => { window.location.href = '/'; }, 800);
+                } else {
+                    showToast(data.message || "अमान्य मोबाइल नंबर या पासवर्ड");
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("लॉगिन सर्वर त्रुटि");
+            }
+        }
+
+        async function handleFarmerRegister(e) {
+            e.preventDefault();
+            const payload = {
+                name: document.getElementById('reg-name').value,
+                phone: document.getElementById('reg-phone').value,
+                password: document.getElementById('reg-pass').value,
+                location: document.getElementById('reg-loc').value,
+                farm_size_acres: parseFloat(document.getElementById('reg-size').value),
+                soil_type: document.getElementById('reg-soil').value,
+                primary_crop: document.getElementById('reg-crop').value
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/farmer/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("पंजीकरण सफल! कृपया लॉगिन करें।");
+                    switchLoginTab('farmer');
+                    fillFarmerDemo(payload.phone, payload.password);
+                } else {
+                    showToast(data.error || "पंजीकरण में त्रुटि");
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("पंजीकरण सर्वर त्रुटि");
+            }
+        }
+
+        async function handleAdminLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password: pass })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('annadata_admin', JSON.stringify(data.admin));
+                    showToast("अधिकारी लॉगिन सफल! एडमिन डैशबोर्ड खोला जा रहा है...");
+                    setTimeout(() => { window.location.href = '/admin'; }, 800);
+                } else {
+                    showToast(data.message || "अमान्य एडमिन यूज़रनेम या पासवर्ड");
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("एडमिन लॉगिन सर्वर त्रुटि");
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+    </script>
+</body>
+</html>

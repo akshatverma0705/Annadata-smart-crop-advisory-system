@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>होम पेज | अन्नदाता - सही सलाह, बेहतर फसल</title>
+    <link rel="stylesheet" href="./home.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <!-- Main container -->
+    <div class="outercontainer">
+        <div class="leftside">
+            <!-- left container ki branding -->
+            <div class="branding">
+                <img src="./assets/annadatalogo.jpg" alt="logo" class="logo">
+                <div class="text">
+                    <h1 id="brand-title">अन्नदाता</h1>
+                    <p id="brand-tagline">सही सलाह, बेहतर फसल</p>
+                </div>
+            </div>
+            <!-- DASHBOARD LINKS -->
+            <div class="links" id="sidebar-links">
+                <a href="#home" class="active" onclick="switchTab('home')"><span class="material-symbols-outlined">home</span><span class="nav-text">मुख्य पृष्ठ</span></a>
+                <a href="#crop" onclick="openCropModal()"><span class="material-symbols-outlined">wheat</span><span class="nav-text">फसल की सलाह</span></a>
+                <a href="#soil" onclick="openSoilModal()"><span class="material-symbols-outlined">experiment</span><span class="nav-text">मिट्टी की जाँच</span></a>
+                <a href="#fertilizer" onclick="openFertilizerModal()"><span class="material-symbols-outlined">grass</span><span class="nav-text">खाद की सलाह</span></a>
+                <a href="#irrigation" onclick="openIrrigationModal()"><span class="material-symbols-outlined">valve</span><span class="nav-text">सिंचाई की सलाह</span></a>
+                <a href="#yield" onclick="openYieldModal()"><span class="material-symbols-outlined">finance_mode</span><span class="nav-text">उपज का अनुमान</span></a>
+                <a href="#mandi" onclick="openMandiModal()"><span class="material-symbols-outlined">sell</span><span class="nav-text">बाजार भाव</span></a>
+                <a href="#history" onclick="openHistoryModal()"><span class="material-symbols-outlined">history</span><span class="nav-text">सलाह इतिहास</span></a>
+                <a href="#settings" onclick="openProfileModal()"><span class="material-symbols-outlined">settings</span><span class="nav-text">सेटिंग्स</span></a>
+                <a href="/login"><span class="material-symbols-outlined">login</span><span class="nav-text">लॉगिन / साइन-अप</span></a>
+                <a href="/admin" style="background:#fff7ed; color:#c2410c; border:1px solid #ffedd5;"><span class="material-symbols-outlined" style="color:#ea580c;">admin_panel_settings</span><span class="nav-text" style="font-weight:800;">एडमिन पोर्टल</span></a>
+                <a href="#help" onclick="openHelpModal()"><span class="material-symbols-outlined">help</span><span class="nav-text">सहायता</span></a>
+            </div>
+            <div class="leftfooter" onclick="speakText('किसान हेल्पलाइन नंबर 9520412093 पर संपर्क करें या सहायता केंद्र पर बात करें')">
+                <img src="./assets/help.png" alt="HELP?" class="help">
+                <p>+91 9520412093</p>
+            </div>
+        </div>
+        
+        <div class="rightside">
+            <div class="top">
+                <!-- top ka left div -->
+                <div class="leftdiv">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <p id="current-location-text">इंदौर , मध्य प्रदेश</p>
+                    <button type="button" onclick="openLocationModal()" id="btn-change-location">स्थान बदलें</button>
+                </div>
+                <!-- top ka right div -->
+                <div class="rightdiv">
+                    <select name="language" id="language" onchange="changeLanguage(this.value)">
+                        <option value="hi" selected>हिंदी</option>
+                        <option value="en">English</option>
+                        <option value="mr">मराठी</option>
+                    </select>
+                    <button type="button" class="notification-button" onclick="toggleNotifications()" title="सूचनाएं"><span class="material-symbols-outlined">notifications</span></button>
+                    <div class="account" onclick="openProfileModal()">
+                        <span class="material-symbols-outlined person">person</span>
+                        <p id="profile-name">किसान भाई</p>
+                        <span class="material-symbols-outlined arrow">keyboard_arrow_down</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle section of home page -->
+            <div class="mid">
+                <div class="imgdiv">
+                    <img src="./assets/homepageimg.jpg" alt="खेत की तस्वीर" id="hero-banner-img">
+                    <button type="button" onclick="openCropModal()" id="btn-hero-advice">नयी सलाह प्राप्त करें <span class="material-symbols-outlined">arrow_forward</span></button>
+                    <div class="khet-ki-jankari">
+                        <h2 id="farm-info-title">खेत की जानकारी</h2>
+                        <div class="line"><hr></div>
+                        <div class="information">
+                            <p id="label-farm-size">खेत का आकार</p>
+                            <p id="val-farm-size">2.5 एकड़</p>
+                        </div>
+                        <div class="line"><hr></div>
+                        <div class="information">
+                            <p id="label-soil-type">मिटटी का प्रकार</p>
+                            <p id="val-soil-type">दोमट</p>
+                        </div>
+                        <div class="line"><hr></div>
+                        <div class="information">
+                            <p id="label-main-crop">मुख्य फसल</p>
+                            <p id="val-main-crop">गेहूं</p>
+                        </div>
+                        <div class="line"><hr></div>
+                        <div class="information">
+                            <p id="label-last-update">आखिरी अपडेट</p>
+                            <p id="val-last-update">12 मई 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMAGE KE NICHE WAALE MINI CARDS -->
+                <div class="minicards">
+                    <div class="minicard minicard1" onclick="openCropModal()">
+                        <div class="minileft"><span class="material-symbols-outlined">cannabis</span></div>
+                        <div class="miniright">
+                            <p id="card-title-1">सुझाई गयी फसल</p>
+                            <h3 id="card-val-1">गेहूं</h3>
+                            <h5 id="card-sub-1">उपयुक्तता: 92%</h5>
+                        </div>
+                    </div>
+                    <div class="minicard minicard2" onclick="openSoilModal()">
+                        <div class="minileft"><span class="material-symbols-outlined">experiment</span></div>
+                        <div class="miniright">
+                            <p id="card-title-2">मिट्टी स्वास्थ्य स्कोर</p>
+                            <h3 id="card-val-2">78/100</h3>
+                            <h5 id="card-sub-2">अच्छा</h5>
+                        </div>
+                    </div>
+                    <div class="minicard minicard3" onclick="openWeatherModal()">
+                        <div class="minileft"><span class="material-symbols-outlined">rainy</span></div>
+                        <div class="miniright">
+                            <p id="card-title-3">आने वाले तीन दिन बारिश</p>
+                            <h3 id="card-val-3">18 मि.मि.</h3>
+                            <h5 id="card-sub-3">मध्यम</h5>
+                        </div>
+                    </div>
+                    <div class="minicard minicard4" onclick="openWeatherModal()">
+                        <div class="minileft"><span class="material-symbols-outlined">dew_point</span></div>
+                        <div class="miniright">
+                            <p id="card-title-4">तापमान</p>
+                            <h3 id="card-val-4">28°C</h3>
+                            <h5 id="card-sub-4">सामान्य</h5>
+                        </div>
+                    </div>
+                    <div class="minicard minicard5" onclick="openIrrigationModal()">
+                        <div class="minileft"><span class="material-symbols-outlined">water_drops</span></div>
+                        <div class="miniright">
+                            <p id="card-title-5">मिट्टी में नमी</p>
+                            <h3 id="card-val-5">32%</h3>
+                            <h5 id="card-sub-5">अच्छी</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BADE CARDS -->
+                <section class="dashboard-segment">
+                    <!-- ================= आज की सलाह ================= -->
+                    <div class="dashboard-card advice-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h2 id="heading-today-advice">आज की सलाह</h2>
+                            <button class="btn-tts" onclick="speakAllTodayAdvice()" title="पूरी सलाह बोलकर सुनें">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">volume_up</span> सुनें
+                            </button>
+                        </div>
+
+                        <div class="advice-item">
+                            <div class="advice-icon green-icon">
+                                <span class="material-symbols-outlined">eco</span>
+                            </div>
+                            <div class="advice-text">
+                                <h3 id="adv-title-crop">फसल सलाह</h3>
+                                <p id="adv-desc-crop">आपकी मिट्टी और मौसम के हिसाब से गेहूं की फसल उपयुक्त है।</p>
+                            </div>
+                            <button onclick="showAdviceDetail('crop')">विस्तार से देखें</button>
+                        </div>
+
+                        <div class="advice-item">
+                            <div class="advice-icon brown-icon">
+                                <span class="material-symbols-outlined">compost</span>
+                            </div>
+                            <div class="advice-text">
+                                <h3 id="adv-title-fert">खाद सलाह</h3>
+                                <p id="adv-desc-fert">नाइट्रोजन की कमी है। 7 दिनों में यूरिया का उपयोग करें।</p>
+                            </div>
+                            <button onclick="showAdviceDetail('fertilizer')">विस्तार से देखें</button>
+                        </div>
+
+                        <div class="advice-item">
+                            <div class="advice-icon blue-icon">
+                                <span class="material-symbols-outlined">water_drop</span>
+                            </div>
+                            <div class="advice-text">
+                                <h3 id="adv-title-irrig">सिंचाई सलाह</h3>
+                                <p id="adv-desc-irrig">मिट्टी में नमी 32% है। 2 दिनों में हल्की सिंचाई करें।</p>
+                            </div>
+                            <button onclick="showAdviceDetail('irrigation')">विस्तार से देखें</button>
+                        </div>
+
+                        <div class="advice-item">
+                            <div class="advice-icon orange-icon">
+                                <span class="material-symbols-outlined">warning</span>
+                            </div>
+                            <div class="advice-text">
+                                <h3 id="adv-title-pest">कीट एवं रोग सलाह</h3>
+                                <p id="adv-desc-pest">पत्तियों पर पीला/भूरा रतुआ (Rust) का खतरा है। खेत की नियमित जाँच करें।</p>
+                            </div>
+                            <button onclick="showAdviceDetail('pest')">विस्तार से देखें</button>
+                        </div>
+
+                        <div class="advice-item">
+                            <div class="advice-icon purple-icon">
+                                <span class="material-symbols-outlined">cloud</span>
+                            </div>
+                            <div class="advice-text">
+                                <h3 id="adv-title-weather">मौसम सलाह</h3>
+                                <p id="adv-desc-weather">आने वाले 3 दिनों में 18 मिमी बारिश होने की संभावना है।</p>
+                            </div>
+                            <button onclick="showAdviceDetail('weather')">विस्तार से देखें</button>
+                        </div>
+                    </div>
+
+                    <!-- ================= कीट एवं रोग पहचान ================= -->
+                    <div class="dashboard-card disease-card">
+                        <h2 id="heading-disease-card">कीट एवं रोग पहचानें</h2>
+                        <p class="card-subtitle" id="sub-disease-card">
+                            फसल के पत्ते की फोटो अपलोड करें और रोग जानें
+                        </p>
+
+                        <div class="upload-box" id="drop-zone" onclick="document.getElementById('crop-image').click()">
+                            <span class="material-symbols-outlined upload-icon">cloud_upload</span>
+                            <h3 id="text-upload-title">फोटो अपलोड करें</h3>
+                            <p id="text-upload-sub">JPG, PNG (अधिकतम 5MB)</p>
+                            <input type="file" id="crop-image" accept="image/png,image/jpeg" onchange="handleImageUpload(event)">
+                        </div>
+
+                        <div class="sample-buttons">
+                            <span style="font-size: 11px; color: #64748b; font-weight: 600; align-self: center;">नमूना:</span>
+                            <button class="sample-btn" onclick="testSampleDisease('wheat')">गेहूं रतुआ</button>
+                            <button class="sample-btn" onclick="testSampleDisease('rice')">धान झोंका</button>
+                            <button class="sample-btn" onclick="testSampleDisease('tomato')">टमाटर झुलसा</button>
+                            <button class="sample-btn" onclick="testSampleDisease('healthy')">स्वस्थ पत्ती</button>
+                        </div>
+
+                        <h3 class="current-title" id="heading-recent-diag" style="margin-top: 14px;">हाल की पहचान</h3>
+                        <div class="disease-result" id="disease-result-box">
+                            <img src="./assets/leaf.jpg" alt="पत्ती" id="disease-preview-img">
+                            <div class="disease-info">
+                                <div class="disease-heading">
+                                    <h3 id="res-disease-name">पत्ती रस्ट (गेहूं)</h3>
+                                    <span id="res-disease-tag">संभावित रोग</span>
+                                </div>
+                                <p>विश्वास स्कोर: <strong id="res-confidence">94%</strong></p>
+                                <p>पहचान की तारीख: <strong id="res-date">12 मई 2026</strong></p>
+                                <a href="javascript:void(0)" onclick="openDiseaseDetailModal()" id="link-disease-detail">विस्तार से देखें →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ================= उपज का अनुमान ================= -->
+                    <div class="dashboard-card yield-card">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                            <h2 id="heading-yield-card">उपज का अनुमान</h2>
+                            <button class="btn-tts" onclick="speakYieldAdvice()" style="padding: 2px 8px; font-size: 11px;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">volume_up</span>
+                            </button>
+                        </div>
+                        <p class="card-subtitle" id="sub-yield-card">
+                            आपके खेत के लिए अनुमानित उपज
+                        </p>
+
+                        <div class="yield-number">
+                            <strong id="val-yield-num">34.6</strong>
+                            <span id="val-yield-unit">क्विंटल / एकड़</span>
+                        </div>
+
+                        <p class="yield-status">
+                            उपज की स्थिति: <strong id="val-yield-status">अच्छी</strong>
+                        </p>
+
+                        <!-- Simple graph -->
+                        <div class="chart">
+                            <div class="y-axis">
+                                <span>40</span>
+                                <span>30</span>
+                                <span>20</span>
+                                <span>10</span>
+                                <span>0</span>
+                            </div>
+                            <div class="graph-area">
+                                <svg viewBox="0 0 400 180" preserveAspectRatio="none" id="yield-svg-chart">
+                                    <line x1="0" y1="20" x2="400" y2="20"></line>
+                                    <line x1="0" y1="60" x2="400" y2="60"></line>
+                                    <line x1="0" y1="100" x2="400" y2="100"></line>
+                                    <line x1="0" y1="140" x2="400" y2="140"></line>
+                                    <line x1="0" y1="175" x2="400" y2="175"></line>
+                                    <polyline id="yield-polyline" points="20,125 110,85 200,75 290,45 380,20"></polyline>
+                                    <circle cx="20" cy="125" r="5"></circle>
+                                    <circle cx="110" cy="85" r="5"></circle>
+                                    <circle cx="200" cy="75" r="5"></circle>
+                                    <circle cx="290" cy="45" r="5"></circle>
+                                    <circle cx="380" cy="20" r="5"></circle>
+                                </svg>
+                                <div class="months" id="chart-months">
+                                    <span>जनवरी</span>
+                                    <span>फरवरी</span>
+                                    <span>मार्च</span>
+                                    <span>अप्रैल</span>
+                                    <span>मई</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="factors-title" id="heading-factors">ध्यान में रखे गए कारक</h3>
+                        <div class="factors" id="yield-factors-list">
+                            <span>मिट्टी स्वास्थ्य</span>
+                            <span>मौसम</span>
+                            <span>फसल का प्रकार</span>
+                            <span>सिंचाई</span>
+                            <span>खाद का उपयोग</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- BOTTOM QUICK NAV -->
+            <div class="bottom">
+                <section class="quick-actions">
+                    <h2 id="heading-quick-actions">त्वरित कार्य</h2>
+                    <div class="quick-actions-list">
+                        <a href="javascript:void(0)" class="quick-action" onclick="openCropModal()">
+                            <div class="quick-icon green">
+                                <span class="material-symbols-outlined">eco</span>
+                            </div>
+                            <span class="qa-crop">फसल की सलाह</span>
+                        </a>
+
+                        <a href="javascript:void(0)" class="quick-action" onclick="openSoilModal()">
+                            <div class="quick-icon green">
+                                <span class="material-symbols-outlined">experiment</span>
+                            </div>
+                            <span class="qa-soil">मिट्टी की जाँच</span>
+                        </a>
+
+                        <a href="javascript:void(0)" class="quick-action" onclick="openFertilizerModal()">
+                            <div class="quick-icon brown">
+                                <span class="material-symbols-outlined">compost</span>
+                            </div>
+                            <span class="qa-fert">खाद की सलाह</span>
+                        </a>
+
+                        <a href="javascript:void(0)" class="quick-action" onclick="openIrrigationModal()">
+                            <div class="quick-icon blue">
+                                <span class="material-symbols-outlined">water_drop</span>
+                            </div>
+                            <span class="qa-irrig">सिंचाई योजना</span>
+                        </a>
+
+                        <a href="javascript:void(0)" class="quick-action" onclick="openWeatherModal()">
+                            <div class="quick-icon orange">
+                                <span class="material-symbols-outlined">partly_cloudy_day</span>
+                            </div>
+                            <span class="qa-weather">मौसम जानकारी</span>
+                        </a>
+
+                        <a href="javascript:void(0)" class="quick-action" onclick="openMandiModal()">
+                            <div class="quick-icon green">
+                                <span class="material-symbols-outlined">bar_chart</span>
+                            </div>
+                            <span class="qa-mandi">बाजार भाव</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================
+         INTERACTIVE POPUP MODALS
+         =================================================== -->
+
+    <!-- 1. CROP RECOMMENDATION MODAL -->
+    <div class="modal-overlay" id="modal-crop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined" style="color: var(--primary);">wheat</span> <span id="modal-crop-title">स्मार्ट फसल चयन व सिफारिश (AI)</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-crop')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; color: #64748b;">अपनी मिट्टी व जलवायु के अनुसार सर्वाधिक लाभदायक फसल की सिफारिश प्राप्त करें:</p>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>नाइट्रोजन (N kg/ha): <span id="lbl-n" style="color:var(--primary); font-weight:800;">90</span></label>
+                        <input type="range" id="input-n" min="10" max="180" value="90" oninput="document.getElementById('lbl-n').innerText = this.value">
+                    </div>
+                    <div class="form-group">
+                        <label>फास्फोरस (P kg/ha): <span id="lbl-p" style="color:var(--primary); font-weight:800;">45</span></label>
+                        <input type="range" id="input-p" min="5" max="140" value="45" oninput="document.getElementById('lbl-p').innerText = this.value">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>पोटाश (K kg/ha): <span id="lbl-k" style="color:var(--primary); font-weight:800;">40</span></label>
+                        <input type="range" id="input-k" min="5" max="200" value="40" oninput="document.getElementById('lbl-k').innerText = this.value">
+                    </div>
+                    <div class="form-group">
+                        <label>मिट्टी pH मान: <span id="lbl-ph" style="color:var(--primary); font-weight:800;">6.8</span></label>
+                        <input type="range" id="input-ph" min="4.5" max="8.5" step="0.1" value="6.8" oninput="document.getElementById('lbl-ph').innerText = this.value">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>अनुमानित वर्षा (mm): <span id="lbl-rain" style="color:var(--primary); font-weight:800;">85</span></label>
+                        <input type="range" id="input-rain" min="20" max="300" value="85" oninput="document.getElementById('lbl-rain').innerText = this.value">
+                    </div>
+                    <div class="form-group">
+                        <label>औसत तापमान (°C): <span id="lbl-temp" style="color:var(--primary); font-weight:800;">24</span></label>
+                        <input type="range" id="input-temp" min="10" max="42" value="24" oninput="document.getElementById('lbl-temp').innerText = this.value">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="submitCropRecommendation()">
+                    <span class="material-symbols-outlined">psychology</span> सर्वोत्तम फसल खोजें (AI Predict)
+                </button>
+                <div id="crop-recommendation-result" style="display:none; background:#e8f5e9; padding:16px; border-radius:12px; border:1px solid #c8e6c9;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. FERTILIZER ADVISORY MODAL -->
+    <div class="modal-overlay" id="modal-fertilizer">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined" style="color: #6d4c41;">grass</span> <span>सटीक खाद व पोषक तत्व कैलकुलेटर</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-fertilizer')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>फसल चुनें:</label>
+                        <select id="fert-crop-select">
+                            <option value="Wheat">गेहूं (Wheat)</option>
+                            <option value="Rice">चावल / धान (Rice)</option>
+                            <option value="Maize">मक्का (Maize)</option>
+                            <option value="Mustard">सरसों (Mustard)</option>
+                            <option value="Cotton">कपास (Cotton)</option>
+                            <option value="Sugarcane">गन्ना (Sugarcane)</option>
+                            <option value="Soybean">सोयाबीन (Soybean)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>खेत का आकार (एकड़):</label>
+                        <input type="number" id="fert-farm-size" value="2.5" step="0.5">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="calculateFertilizerSchedule()">
+                    <span class="material-symbols-outlined">calculate</span> खाद की मात्रा व खर्च गणना करें
+                </button>
+                <div id="fertilizer-calc-result" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. DISEASE DIAGNOSIS DETAIL MODAL -->
+    <div class="modal-overlay" id="modal-disease-detail">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined" style="color: #b91c1c;">coronavirus</span> <span id="diag-modal-title">रोग निदान व उपचार परामर्श</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-disease-detail')">×</button>
+            </div>
+            <div class="modal-body" id="disease-modal-body">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. LOCATION SWITCHER MODAL -->
+    <div class="modal-overlay" id="modal-location">
+        <div class="modal-content" style="max-width: 440px;">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined" style="color: var(--accent-orange);">location_on</span> <span>अपना कृषि जिला चुनें</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-location')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>कृषि क्षेत्र / जिला:</label>
+                    <select id="location-picker">
+                        <option value="इंदौर , मध्य प्रदेश" selected>इंदौर , मध्य प्रदेश</option>
+                        <option value="भोपाल , मध्य प्रदेश">भोपाल , मध्य प्रदेश</option>
+                        <option value="उज्जैन , मध्य प्रदेश">उज्जैन , मध्य प्रदेश</option>
+                        <option value="जयपुर , राजस्थान">जयपुर , राजस्थान</option>
+                        <option value="करनाल , हरियाणा">करनाल , हरियाणा</option>
+                        <option value="नासिक , महाराष्ट्र">नासिक , महाराष्ट्र</option>
+                        <option value="वाराणसी , उत्तर प्रदेश">वाराणसी , उत्तर प्रदेश</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="updateLocation()">स्थान सुरक्षित करें</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. MANDI PRICES MODAL -->
+    <div class="modal-overlay" id="modal-mandi">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined" style="color: var(--primary);">sell</span> <span>ताजा मंडी भाव (APMC Live Rates)</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-mandi')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>फसल चुनें:</label>
+                    <select id="mandi-crop-select" onchange="fetchMandiPrices(this.value)">
+                        <option value="Wheat" selected>गेहूं (Wheat)</option>
+                        <option value="Soybean">सोयाबीन (Soybean)</option>
+                        <option value="Chickpea">चना (Gram)</option>
+                        <option value="Mustard">सरसों (Mustard)</option>
+                        <option value="Cotton">कपास (Cotton)</option>
+                        <option value="Tomato">टमाटर (Tomato)</option>
+                    </select>
+                </div>
+                <div id="mandi-data-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. ADVISORY DETAIL MODAL -->
+    <div class="modal-overlay" id="modal-advice-detail">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined" id="advice-modal-icon">eco</span> <span id="advice-modal-title">सलाह विवरण</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-advice-detail')">×</button>
+            </div>
+            <div class="modal-body" id="advice-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- 7. FARM PROFILE / SETTINGS MODAL -->
+    <div class="modal-overlay" id="modal-profile">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined">person</span> <span>किसान प्रोफाइल व खेत सेटिंग्स</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-profile')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>किसान का नाम:</label>
+                    <input type="text" id="prof-name-input" value="किसान भाई">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>खेत का आकार (एकड़):</label>
+                        <input type="number" id="prof-size-input" value="2.5" step="0.5">
+                    </div>
+                    <div class="form-group">
+                        <label>मिट्टी का प्रकार:</label>
+                        <select id="prof-soil-input">
+                            <option value="दोमट">दोमट (Loamy)</option>
+                            <option value="काली">काली मिट्टी (Black Soil)</option>
+                            <option value="चिकनी">चिकनी मिट्टी (Clay)</option>
+                            <option value="बलुई">बलुई दोमट (Sandy Loam)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>मुख्य वर्तमान फसल:</label>
+                    <select id="prof-crop-input">
+                        <option value="गेहूं" selected>गेहूं</option>
+                        <option value="धान / चावल">धान / चावल</option>
+                        <option value="सोयाबीन">सोयाबीन</option>
+                        <option value="कपास">कपास</option>
+                        <option value="मक्का">मक्का</option>
+                        <option value="सरसों">सरसों</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="saveFarmProfile()">प्रोफाइल सुरक्षित करें</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. HISTORY MODAL -->
+    <div class="modal-overlay" id="modal-history">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><span class="material-symbols-outlined">history</span> <span>सलाह एवं परीक्षण इतिहास</span></h2>
+                <button class="modal-close" onclick="closeModal('modal-history')">×</button>
+            </div>
+            <div class="modal-body" id="history-container">
+                <p>इतिहास लोड हो रहा है...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast message -->
+    <div id="toast"><span class="material-symbols-outlined">check_circle</span> <span id="toast-msg">अपडेट सफल</span></div>
+
+    <!-- Application Script -->
+    <script src="./app.js"></script>
+</body>
+</html>

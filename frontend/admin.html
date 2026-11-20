@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>प्रशासक पोर्टल | अन्नदाता - कृषि विशेषज्ञ डैशबोर्ड</title>
+    <link rel="stylesheet" href="./home.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            background: #f1f5f9;
+        }
+        .admin-sidebar {
+            width: 260px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+        .admin-sidebar .branding .logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            object-fit: contain;
+            background: #000000;
+            border: 1.5px solid rgba(245, 197, 24, 0.4);
+        }
+        .admin-sidebar .branding h1 {
+            color: #ffffff;
+            font-size: 20px;
+        }
+        .admin-sidebar .branding p {
+            color: #38bdf8;
+            font-size: 11px;
+        }
+        .admin-sidebar .links a {
+            color: #94a3b8;
+        }
+        .admin-sidebar .links a:hover, .admin-sidebar .links a.active {
+            background: #1e293b;
+            color: #38bdf8;
+        }
+        .admin-sidebar .links a.active .material-symbols-outlined {
+            color: #38bdf8;
+        }
+        .admin-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .admin-top {
+            background: #ffffff;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .admin-kpis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            padding: 24px 32px 0 32px;
+        }
+        .kpi-card {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-sm);
+        }
+        .kpi-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+        .kpi-blue { background: #e0f2fe; color: #0284c7; }
+        .kpi-green { background: #e8f5e9; color: #2e7d32; }
+        .kpi-orange { background: #fff3e0; color: #e65100; }
+        .kpi-purple { background: #f3e5f5; color: #7b1fa2; }
+        
+        .kpi-info p {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .kpi-info h3 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-top: 2px;
+        }
+        
+        .admin-content-tabs {
+            padding: 24px 32px;
+        }
+        .admin-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+        .admin-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .admin-card-header h2 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        table.admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        table.admin-table th {
+            background: #f8fafc;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 700;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        table.admin-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+        }
+        table.admin-table tr:hover {
+            background: #f8fafc;
+        }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .badge-green { background: #dcfce7; color: #15803d; }
+        .badge-orange { background: #ffedd5; color: #c2410c; }
+        .badge-red { background: #fee2e2; color: #b91c1c; }
+        .badge-blue { background: #e0f2fe; color: #0369a1; }
+    </style>
+</head>
+<body class="admin-layout">
+    <!-- Admin Sidebar -->
+    <div class="admin-sidebar">
+        <div class="branding" style="border-color: #334155;">
+            <img src="./assets/annadatalogo.jpg" alt="logo" class="logo">
+            <div class="text">
+                <h1>अन्नदाता एडमिन</h1>
+                <p>कृषि विज्ञान एवं प्रबंधन केंद्र</p>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="#overview" class="active" onclick="switchAdminTab('overview')">
+                <span class="material-symbols-outlined">dashboard</span> मुख्य अवलोकन
+            </a>
+            <a href="#farmers" onclick="switchAdminTab('farmers')">
+                <span class="material-symbols-outlined">group</span> किसान डायरेक्टरी
+            </a>
+            <a href="#scans" onclick="switchAdminTab('scans')">
+                <span class="material-symbols-outlined">coronavirus</span> रोग जांच ऑडिट
+            </a>
+            <a href="#mandi" onclick="switchAdminTab('mandi')">
+                <span class="material-symbols-outlined">payments</span> मंडी भाव नियंत्रण
+            </a>
+            <a href="#broadcast" onclick="switchAdminTab('broadcast')">
+                <span class="material-symbols-outlined">campaign</span> अलर्ट प्रसारण
+            </a>
+        </div>
+
+        <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #334155;">
+            <a href="/" style="display: flex; align-items: center; gap: 8px; color: #38bdf8; text-decoration: none; font-size: 13px; font-weight: 700;">
+                <span class="material-symbols-outlined">visibility</span> किसान पोर्टल देखें
+            </a>
+            <a href="/login" onclick="logoutAdmin()" style="display: flex; align-items: center; gap: 8px; color: #ef4444; text-decoration: none; font-size: 13px; font-weight: 700; margin-top: 10px;">
+                <span class="material-symbols-outlined">logout</span> लॉगआउट
+            </a>
+        </div>
+    </div>
+
+    <!-- Admin Main Content Area -->
+    <div class="admin-main">
+        <div class="admin-top">
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; color: #0f172a;" id="admin-greeting">प्रशासक डैशबोर्ड</h1>
+                <p style="font-size: 12px; color: #64748b;" id="admin-role-text">डॉ. राजेश शर्मा (वरिष्ठ कृषि वैज्ञानिक)</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="badge badge-green" style="font-size: 12px; padding: 6px 12px;">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">database</span> PostgreSQL सक्रिय
+                </span>
+                <button class="btn-primary" onclick="loadAdminStats()" style="padding: 6px 14px; font-size: 13px;">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">refresh</span> रीफ्रेश
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="admin-kpis">
+            <div class="kpi-card">
+                <div class="kpi-icon kpi-green">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <div class="kpi-info">
+                    <p>कुल पंजीकृत किसान</p>
+                    <h3 id="stat-farmers">0</h3>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon kpi-orange">
+                    <span class="material-symbols-outlined">psychology</span>
+                </div>
+                <div class="kpi-info">
+                    <p>कुल AI रोग जांचें</p>
+                    <h3 id="stat-scans">0</h3>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon kpi-blue">
+                    <span class="material-symbols-outlined">storefront</span>
+                </div>
+                <div class="kpi-info">
+                    <p>सक्रिय APMC मंडियां</p>
+                    <h3 id="stat-mandis">0</h3>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon kpi-purple">
+                    <span class="material-symbols-outlined">campaign</span>
+                </div>
+                <div class="kpi-info">
+                    <p>प्रकाशित कृषि अलर्ट</p>
+                    <h3 id="stat-broadcasts">1</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Tabs Content -->
+        <div class="admin-content-tabs">
+            
+            <!-- 1. FARMERS DIRECTORY -->
+            <div class="admin-card" id="section-farmers">
+                <div class="admin-card-header">
+                    <h2><span class="material-symbols-outlined" style="color: var(--primary);">group</span> पंजीकृत किसान सूची (PostgreSQL Database)</h2>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>आईडी</th>
+                                <th>किसान का नाम</th>
+                                <th>मोबाइल नंबर</th>
+                                <th>स्थान / जिला</th>
+                                <th>खेत का आकार</th>
+                                <th>मुख्य फसल</th>
+                                <th>मिट्टी प्रकार</th>
+                                <th>स्वास्थ्य स्कोर</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-farmers-body">
+                            <tr><td colspan="8" style="text-align:center;">डेटा लोड हो रहा है...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2. RECENT DISEASE SCANS -->
+            <div class="admin-card" id="section-scans">
+                <div class="admin-card-header">
+                    <h2><span class="material-symbols-outlined" style="color: #b91c1c;">coronavirus</span> हाल ही में की गई AI रोग जांचें</h2>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>दिनांक</th>
+                                <th>किसान</th>
+                                <th>फसल</th>
+                                <th>रोग का नाम</th>
+                                <th>विश्वास स्कोर</th>
+                                <th>गंभीरता</th>
+                                <th>सुझाया गया उपचार</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-scans-body">
+                            <tr><td colspan="7" style="text-align:center;">डेटा लोड हो रहा है...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3. MANDI RATES MANAGER -->
+            <div class="admin-card" id="section-mandi">
+                <div class="admin-card-header">
+                    <h2><span class="material-symbols-outlined" style="color: #0284c7;">payments</span> मंडी भाव लाइव नियंत्रण व मूल्य संशोधन</h2>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>फसल</th>
+                                <th>मंडी का नाम</th>
+                                <th>राज्य</th>
+                                <th>मॉडल भाव (₹/क्विंटल)</th>
+                                <th>न्यूनतम - अधिकतम</th>
+                                <th>सरकारी MSP</th>
+                                <th>रुझान</th>
+                                <th>कार्यवाही</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-mandi-body">
+                            <tr><td colspan="8" style="text-align:center;">डेटा लोड हो रहा है...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. ALERT BROADCAST -->
+            <div class="admin-card" id="section-broadcast">
+                <div class="admin-card-header">
+                    <h2><span class="material-symbols-outlined" style="color: #e65100;">campaign</span> नया मौसम / रोग चेतावनी अलर्ट प्रसारित करें</h2>
+                </div>
+                <form onsubmit="handleSendBroadcast(event)" style="display: flex; flex-direction: column; gap: 14px;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>चेतावनी शीर्षक (Alert Title):</label>
+                            <input type="text" id="bc-title" placeholder="उदा. तेज आंधी व बारिश की पूर्व सूचना" required>
+                        </div>
+                        <div class="form-group">
+                            <label>लक्षित क्षेत्र / संभाग (Target District):</label>
+                            <input type="text" id="bc-district" value="इंदौर एवं मालवा संभाग" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>गंभीरता स्तर (Severity):</label>
+                            <select id="bc-severity">
+                                <option value="उच्च (High Alert)">उच्च (High Alert)</option>
+                                <option value="मध्यम (Moderate Alert)">मध्यम (Moderate Alert)</option>
+                                <option value="सलाह (Advisory Note)">सलाह (Advisory Note)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>जारीकर्ता अधिकारी का नाम:</label>
+                            <input type="text" id="bc-author" value="डॉ. राजेश शर्मा" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>विस्तृत संदेश व कृषि परामर्श (Message):</label>
+                        <textarea id="bc-message" rows="3" style="padding: 10px; border-radius: var(--radius-sm); border: 1px solid #cbd5e1; font-family: inherit; font-size: 14px;" placeholder="किसान भाइयों के लिए महत्वपूर्ण निर्देश..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="align-self: flex-start; background: #e65100;">
+                        <span class="material-symbols-outlined">send</span> सभी किसानों को तुरंत प्रसारित करें
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"><span class="material-symbols-outlined">check_circle</span> <span id="toast-msg">अपडेट</span></div>
+
+    <script>
+        const API_BASE = window.location.origin;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminStats();
+        });
+
+        async function loadAdminStats() {
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/dashboard-stats`);
+                const data = await res.json();
+
+                // Update KPIs
+                document.getElementById('stat-farmers').innerText = data.total_farmers || 0;
+                document.getElementById('stat-scans').innerText = data.total_scans || 0;
+                document.getElementById('stat-mandis').innerText = data.total_mandi_entries || 0;
+                document.getElementById('stat-broadcasts').innerText = (data.broadcasts || []).length;
+
+                // Render Farmers Table
+                const fBody = document.getElementById('table-farmers-body');
+                if (data.recent_farmers && data.recent_farmers.length > 0) {
+                    fBody.innerHTML = data.recent_farmers.map(f => `
+                        <tr>
+                            <td>#${f.id}</td>
+                            <td><strong>${f.name}</strong></td>
+                            <td>${f.phone}</td>
+                            <td>${f.location}</td>
+                            <td>${f.farm_size_acres} एकड़</td>
+                            <td><span class="badge badge-green">${f.primary_crop}</span></td>
+                            <td>${f.soil_type}</td>
+                            <td><strong>${f.soil_health_score}/100</strong></td>
+                        </tr>
+                    `).join('');
+                } else {
+                    fBody.innerHTML = `<tr><td colspan="8" style="text-align:center;">कोई पंजीकृत किसान नहीं मिला</td></tr>`;
+                }
+
+                // Render Scans Table
+                const sBody = document.getElementById('table-scans-body');
+                if (data.recent_scans && data.recent_scans.length > 0) {
+                    sBody.innerHTML = data.recent_scans.map(s => `
+                        <tr>
+                            <td>${s.created_at}</td>
+                            <td><strong>${s.farmer_name}</strong></td>
+                            <td>${s.crop}</td>
+                            <td style="color:#b91c1c; font-weight:700;">${s.disease_name_hi}</td>
+                            <td><span class="badge badge-red">${s.confidence_score}%</span></td>
+                            <td>${s.severity}</td>
+                            <td style="font-size:12px; max-width:280px;">${s.remedy}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    sBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">कोई स्कैन उपलब्ध नहीं</td></tr>`;
+                }
+
+                // Render Mandi Table
+                const mBody = document.getElementById('table-mandi-body');
+                if (data.mandi_rates && data.mandi_rates.length > 0) {
+                    mBody.innerHTML = data.mandi_rates.map(m => `
+                        <tr>
+                            <td><strong>${m.crop_hi}</strong> (${m.crop_en})</td>
+                            <td>${m.mandi_name}</td>
+                            <td>${m.state}</td>
+                            <td>
+                                <input type="number" id="mandi-price-${m.id}" value="${m.modal_price}" style="width:90px; padding:4px; font-weight:800; border:1px solid #cbd5e1; border-radius:4px;">
+                            </td>
+                            <td>₹${m.min_price} - ₹${m.max_price}</td>
+                            <td>₹${m.msp || 'N/A'}</td>
+                            <td>
+                                <select id="mandi-trend-${m.id}" style="padding:4px; border-radius:4px;">
+                                    <option value="rising" ${m.trend === 'rising' ? 'selected' : ''}>तेजी (Rising)</option>
+                                    <option value="stable" ${m.trend === 'stable' ? 'selected' : ''}>स्थिर (Stable)</option>
+                                    <option value="falling" ${m.trend === 'falling' ? 'selected' : ''}>मंदी (Falling)</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button onclick="saveMandiPrice(${m.id})" class="btn-primary" style="padding:4px 10px; font-size:11px;">
+                                    अपडेट करें
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function saveMandiPrice(id) {
+            const price = parseFloat(document.getElementById(`mandi-price-${id}`).value);
+            const trend = document.getElementById(`mandi-trend-${id}`).value;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/update-mandi-rate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: id,
+                        modal_price: price,
+                        min_price: price * 0.94,
+                        max_price: price * 1.05,
+                        trend: trend
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("मंडी भाव सफलतापूर्वक अपडेट किया गया!");
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function handleSendBroadcast(e) {
+            e.preventDefault();
+            const payload = {
+                admin_name: document.getElementById('bc-author').value,
+                title: document.getElementById('bc-title').value,
+                target_district: document.getElementById('bc-district').value,
+                severity: document.getElementById('bc-severity').value,
+                message: document.getElementById('bc-message').value
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/create-broadcast`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast("🚨 अलर्ट सभी किसान भाइयों को प्रसारित कर दिया गया!");
+                    document.getElementById('bc-title').value = '';
+                    document.getElementById('bc-message').value = '';
+                    loadAdminStats();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function switchAdminTab(tab) {
+            // Smooth scroll to section
+            const el = document.getElementById(`section-${tab}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('annadata_admin');
+            showToast("एडमिन लॉगआउट सफल");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+    </script>
+</body>
+</html>
