@@ -232,11 +232,26 @@ async def get_dashboard_summary():
     weather = weather_service.get_weather_advisory(profile["location"])
     advisories = store.get_advisory()
     mandi = mandi_service.get_prices(profile.get("primary_crop", "Wheat"))
-    yield_data = yield_engine.estimate_yield(
-        crop=profile.get("primary_crop", "Wheat"),
-        soil_score=profile.get("soil_health_score", 78),
-        farm_size_acres=profile.get("farm_size_acres", 2.5)
-    )
+    crop_mapping = {
+    "गेहूं": "Wheat",
+    "धान": "Rice",
+    "चावल": "Rice",
+    "धान / चावल": "Rice",
+    "सोयाबीन": "Soybean",
+    "कपास": "Cotton",
+    "मक्का": "Maize",
+    "सरसों": "Mustard",
+    "गन्ना": "Sugarcane"
+}
+
+selected_crop = profile.get("primary_crop", "गेहूं")
+english_crop = crop_mapping.get(selected_crop, selected_crop)
+
+yield_data = yield_engine.estimate_yield(
+    crop=english_crop,
+    soil_score=profile.get("soil_health_score", 78),
+    farm_size_acres=profile.get("farm_size_acres", 2.5)
+)
 
     mini_cards = [
         {
