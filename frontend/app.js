@@ -552,10 +552,18 @@ function speakAllTodayAdvice() {
     speakText(text);
 }
 
+
 function speakYieldAdvice() {
-    const text = "आपके 2.5 एकड़ खेत के लिए अनुमानित उपज 34.6 क्विंटल प्रति एकड़ है, जो कि अच्छी स्थिति में है।";
-    speakText(text);
+    const yieldData = currentDashboardData?.yield_data;
+
+    if (!yieldData) {
+        speakText("उपज का अनुमान अभी उपलब्ध नहीं है।");
+        return;
+    }
+
+    speakText(yieldData.voice_text_hi);
 }
+
 
 // Text-to-Speech Engine (Web Speech API)
 function speakText(text) {
