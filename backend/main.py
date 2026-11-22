@@ -253,7 +253,7 @@ yield_data = yield_engine.estimate_yield(
     farm_size_acres=profile.get("farm_size_acres", 2.5)
 )
 
-    mini_cards = [
+mini_cards = [
         {
             "id": 1,
             "icon": "cannabis",
