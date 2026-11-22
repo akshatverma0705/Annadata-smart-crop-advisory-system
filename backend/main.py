@@ -296,14 +296,14 @@ mini_cards = [
         }
     ]
 
-    return {
+return {
         "profile": profile,
         "mini_cards": mini_cards,
         "advisories": advisories,
         "weather": weather,
         "mandi": mandi,
         "yield_data": yield_data
-    }
+}
 
 @app.post("/api/recommend-crop")
 async def recommend_crop(req: CropRecommendationRequest):
